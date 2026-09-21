@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Đăng nhập nộp bài · Tuần 1 · Thực hành Excel</title>
+<link rel="stylesheet" href="../../../assets/site.css">
+<link rel="stylesheet" href="../style.css">
+<script src="https://cdn.jsdelivr.net/npm/pocketbase@0.21.1/dist/pocketbase.umd.js"></script>
+</head>
+<body>
+
+<div class="topnav">
+  <a class="brand" href="../../../index.html">Tin học <small>Lớp 10</small></a>
+  <a class="navlink" href="../index.html" style="border-bottom-color:transparent;">Thực hành Excel</a>
+  <a class="navlink" href="ly-thuyet.html">📘 Tuần 1</a>
+  <a class="navlink" href="bai-tap.html">📝 Bài tập</a>
+  <a class="navlink active" href="nop-bai.html">📤 Nộp bài</a>
+  <span class="spacer"></span>
+</div>
+
+<div class="page-wrap">
+  <div class="crumb"><a href="../../../index.html">Trang chủ</a> / Lớp 10 / <a href="../index.html">Thực hành Excel</a> / Tuần 1 / Đăng nhập</div>
+  <h1 class="page-title">💻 Đăng nhập để nộp bài</h1>
+  <p class="page-subtitle">Đăng nhập bằng tài khoản giáo viên đã cấp.</p>
+
+  <div class="card auth-card">
+    <h2>Đăng nhập</h2>
+    <div class="form-field">
+      <label>Họ và tên</label>
+      <input type="text" id="login-hoten" placeholder="Nguyễn Văn A">
+    </div>
+    <div class="form-field">
+      <label>Lớp</label>
+      <input type="text" id="login-lop" placeholder="10A1">
+    </div>
+    <div class="form-field">
+      <label>Mật khẩu</label>
+      <input type="password" id="login-password" placeholder="Mật khẩu được cấp">
+    </div>
+    <button class="btn btn-primary" style="width:100%;" onclick="doLogin()">Đăng nhập</button>
+    <div class="form-msg" id="login-msg"></div>
+    <p style="text-align:center; font-size:12px; color:var(--sub); margin-top:16px;">Chưa có tài khoản? Liên hệ giáo viên để được cấp.</p>
+  </div>
+</div>
+
+<script>const BAI_ID = 'excel-tuan1';</script>
+<script src="../../pocketbase-shared.js"></script>
+<script>
+  // Nếu đã đăng nhập từ trước, chuyển thẳng sang trang nộp bài
+  const existingSession = SessionManager.load();
+  if (existingSession) {
+    window.location.href = 'nop-bai.html';
+  }
+
+  function showMsg(elId, text, ok) {
+    const el = document.getElementById(elId);
+    el.textContent = text;
+    el.className = 'form-msg show ' + (ok ? 'ok' : 'bad');
+  }
+
+  async function doLogin() {
+    const hoTen = document.getElementById('login-hoten').value.trim();
+    const lop = document.getElementById('login-lop').value.trim();
+    const password = document.getElementById('login-password').value;
+
+    if (!hoTen || !lop || !password) {
+      showMsg('login-msg', 'Vui lòng điền đầy đủ họ tên, lớp và mật khẩu.', false);
+      return;
+    }
+
+    const result = await loginStudent(hoTen, lop, password);
+
+    if (!result.success) {
+      showMsg('login-msg', '❌ ' + result.message, false);
+      return;
+    }
+
+    SessionManager.save(result.student_id, hoTen, lop);
+    showMsg('login-msg', '✅ Đăng nhập thành công!', true);
+    setTimeout(() => window.location.href = 'nop-bai.html', 500);
+  }
+
+  document.getElementById('login-password').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') doLogin();
+  });
+</script>
+</body>
+</html>

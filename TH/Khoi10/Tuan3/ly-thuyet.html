@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lý thuyết Tuần 3 · Thực hành Excel · Lớp 10</title>
+<link rel="stylesheet" href="../../../assets/site.css">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="topnav">
+  <a class="brand" href="../../../index.html">Tin học <small>Lớp 10</small></a>
+  <a class="navlink" href="../index.html" style="border-bottom-color:transparent;">Thực hành Excel</a>
+  <a class="navlink active" href="ly-thuyet.html">📘 Tuần 3</a>
+  <a class="navlink" href="bai-tap.html">📝 Bài tập</a>
+  <a class="navlink" href="dang-nhap.html">📤 Nộp bài</a>
+  <span class="spacer"></span>
+</div>
+
+<div class="page-wrap">
+  <div class="crumb"><a href="../../../index.html">Trang chủ</a> / Lớp 10 / <a href="../index.html">Thực hành Excel</a> / Tuần 3</div>
+  <h1 class="page-title">Tuần 3 — Hệ thống hoá & luyện đề tổng hợp</h1>
+  <p class="page-subtitle">Ôn tập toàn bộ kiến thức 2 tuần trước · Luyện đề kết hợp nhiều hàm trên dữ liệu thật · Mẹo làm bài trắc nghiệm</p>
+
+  <div class="card">
+    <h2>I. Kiến thức cần nhớ</h2>
+    <table class="theory-table">
+      <thead><tr><th>Chủ đề</th><th>Kiến thức ngắn gọn</th><th>Ví dụ minh hoạ</th></tr></thead>
+      <tbody>
+        <tr>
+          <td data-label="Chủ đề">Hệ thống hoá lý thuyết</td>
+          <td data-label="Kiến thức">Ôn theo 5 nhóm lớn: (1) Giao diện &amp; thao tác cơ bản, (2) Dữ liệu &amp; định dạng, (3) Công thức &amp; địa chỉ ô, (4) Các hàm (tính toán/điều kiện/văn bản/tra cứu), (5) Sắp xếp/lọc/biểu đồ/in ấn. Nên vẽ sơ đồ tư duy để thấy mối liên hệ giữa các hàm.</td>
+          <td data-label="Ví dụ" class="ex-line">👉 Nhóm "Hàm điều kiện" gồm IF, COUNTIF, SUMIF; nhóm "Hàm tra cứu" gồm VLOOKUP, HLOOKUP.</td>
+        </tr>
+        <tr>
+          <td data-label="Chủ đề">Kỹ năng làm đề thực hành tổng hợp</td>
+          <td data-label="Kiến thức">Đề thường kết hợp: nhập liệu → công thức/hàm tính toán → hàm điều kiện xếp loại → VLOOKUP tra cứu → sắp xếp/lọc → biểu đồ hoặc định dạng có điều kiện. Đọc kỹ yêu cầu, xác định hàm cần dùng trước khi gõ công thức.</td>
+          <td data-label="Ví dụ" class="ex-line">👉 Gặp "xếp loại" → nghĩ IF; gặp "đếm theo điều kiện" → nghĩ COUNTIF; gặp "tra tên từ mã" → nghĩ VLOOKUP.</td>
+        </tr>
+        <tr>
+          <td data-label="Chủ đề">Chữa lỗi thường gặp</td>
+          <td data-label="Kiến thức">Ưu tiên ôn lại đúng những hàm/thao tác hay sai (ví dụ quên $ trong VLOOKUP, nhầm thứ tự tham số trong IF). Không ôn lan man lại từ đầu khi thời gian còn ít.</td>
+          <td data-label="Ví dụ" class="ex-line">👉 Nếu hay sai VLOOKUP do quên $, hãy làm lại liên tiếp 2-3 bài VLOOKUP có dùng địa chỉ tuyệt đối.</td>
+        </tr>
+        <tr>
+          <td data-label="Chủ đề">Luyện tốc độ làm bài</td>
+          <td data-label="Kiến thức">Bấm giờ giống thời gian thi thật (thường 45-60 phút) để quen áp lực thời gian. Làm câu chắc chắn trước, câu khó để lại làm sau.</td>
+          <td data-label="Ví dụ" class="ex-line">👉 Đặt đồng hồ đếm ngược 45 phút và làm nghiêm túc như thi thật.</td>
+        </tr>
+        <tr>
+          <td data-label="Chủ đề">Ôn lý thuyết trắc nghiệm</td>
+          <td data-label="Kiến thức">Trắc nghiệm thường hỏi: khái niệm (workbook, worksheet, địa chỉ ô), công dụng từng hàm, phân biệt lỗi (#REF!, #VALUE!, #DIV/0!), phím tắt thông dụng (Ctrl+S, Ctrl+C/V, Ctrl+Z, Ctrl+P).</td>
+          <td data-label="Ví dụ" class="ex-line">👉 Câu hỏi mẫu: "Hàm nào đếm số ô có dữ liệu, kể cả chữ?" → Đáp án: COUNTA.</td>
+        </tr>
+        <tr>
+          <td data-label="Chủ đề">Chuẩn bị trước ngày thi</td>
+          <td data-label="Kiến thức">Rà soát checklist kiến thức lần cuối, không học kiến thức mới giai đoạn này. Ngủ đủ giấc, xem nhẹ đề cương 15-20 phút buổi sáng, giữ tâm lý thoải mái.</td>
+          <td data-label="Ví dụ" class="ex-line">👉 Nếu còn nhầm IF lồng nhau, chỉ cần làm lại đúng 2-3 bài, không cần ôn lại toàn bộ.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>II. Xem trước: Bảng quản lý kho hàng (đề tổng hợp)</h2>
+    <p>Bảng dữ liệu 10 mặt hàng, dùng để luyện kết hợp nhiều hàm/thao tác đã học trong 3 tuần — giống đề kiểm tra thực hành thật.</p>
+    <div class="data-preview-wrap">
+      <table class="data-preview">
+        <tr><th>STT</th><th>Mã hàng</th><th>Tên hàng</th><th>Loại</th><th>Tồn kho</th><th>Đơn giá</th><th>Thành tiền</th><th>Tình trạng</th></tr>
+        <tr><td>1</td><td>SP01</td><td>Bút bi Thiên Long</td><td>Văn phòng phẩm</td><td>150</td><td>3,500</td><td class="blank-cell">?</td><td class="blank-cell">?</td></tr>
+        <tr><td>2</td><td>SP02</td><td>Vở kẻ ngang 96 trang</td><td>Văn phòng phẩm</td><td>8</td><td>8,000</td><td class="blank-cell">?</td><td class="blank-cell">?</td></tr>
+        <tr><td>4</td><td>SP04</td><td>Cặp sách học sinh</td><td>Balo - Cặp</td><td>5</td><td>150,000</td><td class="blank-cell">?</td><td class="blank-cell">?</td></tr>
+        <tr><td>...</td><td colspan="7">còn 7 mặt hàng nữa trong file tải về</td></tr>
+      </table>
+    </div>
+    <div class="callout tip">💡 Ô có dấu "?" (tô vàng trong file thật) là ô còn trống — nhiệm vụ của em là viết công thức để tính.</div>
+  </div>
+
+  <div class="btn-row mt-md">
+    <a class="btn btn-primary btn-lg" href="bai-tap.html">Sang phần Bài tập →</a>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lý thuyết Tuần 1 · Thực hành Excel · Lớp 10</title>
+<link rel="stylesheet" href="../../../assets/site.css">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="topnav">
+  <a class="brand" href="../../../index.html">Tin học <small>Lớp 10</small></a>
+  <a class="navlink" href="../index.html" style="border-bottom-color:transparent;">Thực hành Excel</a>
+  <a class="navlink active" href="ly-thuyet.html">📘 Tuần 1</a>
+  <a class="navlink" href="bai-tap.html">📝 Bài tập</a>
+  <a class="navlink" href="dang-nhap.html">📤 Nộp bài</a>
+  <span class="spacer"></span>
+</div>
+
+<div class="page-wrap">
+  <div class="crumb"><a href="../../../index.html">Trang chủ</a> / Lớp 10 / <a href="../index.html">Thực hành Excel</a> / Tuần 1</div>
+  <h1 class="page-title">Tuần 1 — Làm quen Excel, định dạng & hàm cơ bản</h1>
+  <p class="page-subtitle">Giao diện Excel · Định dạng dữ liệu · Địa chỉ ô · Công thức · SUM/AVERAGE/MAX/MIN/COUNT · IF/COUNTIF/SUMIF</p>
+
+  <div class="card">
+    <h2>I. Kiến thức cần nhớ</h2>
+    <table class="theory-table">
+      <thead><tr><th>Chủ đề</th><th>Kiến thức ngắn gọn</th><th>Ví dụ minh hoạ</th></tr></thead>
+      <tbody>
+        <tr>
+          <td data-label="Chủ đề">Giao diện &amp; thao tác cơ bản</td>
+          <td data-label="Kiến thức">Workbook là cả file Excel (.xlsx), Worksheet (sheet) là 1 trang tính bên trong. Ribbon là dải lệnh phía trên (Home, Insert, Page Layout...). Mỗi ô có địa chỉ = Cột + Hàng, ví dụ B3. Phím tắt: Ctrl+N (tạo mới), Ctrl+S (lưu), Ctrl+O (mở).</td>
+          <td data-label="Ví dụ" class="ex-line">👉 Ô giao giữa cột C, hàng 5 gọi là C5. Lưu file: Ctrl+S → đặt tên → chọn .xlsx.</td>
+        </tr>
+        <tr>
+          <td data-label="Chủ đề">Định dạng dữ liệu</td>
+          <td data-label="Kiến thức">3 kiểu dữ liệu: Số (căn phải), Văn bản (căn trái), Ngày tháng (Date). Định dạng: Home → Font/Fill Color/Borders. Number Format: Home → Number → chọn kiểu hiển thị số.</td>
+          <td data-label="Ví dụ" class="ex-line">👉 Gõ 8.5 vào ô điểm, chọn Number Format 2 chữ số thập phân sẽ hiện 8.50.</td>
+        </tr>
+        <tr>
+          <td data-label="Chủ đề">Thao tác ô, hàng, cột &amp; địa chỉ ô</td>
+          <td data-label="Kiến thức">Chèn/xóa hàng-cột: chuột phải → Insert/Delete. Merge &amp; Center: gộp ô, căn giữa (dùng cho tiêu đề). Sao chép công thức: kéo Fill Handle. Địa chỉ tương đối (A1) tự đổi khi kéo copy; địa chỉ tuyệt đối ($A$1) giữ nguyên khi kéo copy.</td>
+          <td data-label="Ví dụ" class="ex-line">👉 Công thức =A1*$B$1 tại dòng 1, kéo xuống dòng 2 sẽ thành =A2*$B$1 — A1 đổi thành A2 nhưng $B$1 không đổi.</td>
+        </tr>
+        <tr>
+          <td data-label="Chủ đề">Công thức cơ bản</td>
+          <td data-label="Kiến thức">Mọi công thức bắt đầu bằng dấu =. Phép toán: +, -, *, /, ^. Thứ tự ưu tiên: ngoặc () → lũy thừa ^ → nhân/chia → cộng/trừ. Lỗi thường gặp: #REF! (tham chiếu ô đã xóa), #VALUE! (sai kiểu dữ liệu), #DIV/0! (chia cho 0).</td>
+          <td data-label="Ví dụ" class="ex-line">👉 =(2+3)*4 cho kết quả 20 vì tính trong ngoặc trước.</td>
+        </tr>
+        <tr>
+          <td data-label="Chủ đề">Hàm tính toán cơ bản</td>
+          <td data-label="Kiến thức">SUM(vùng): tính tổng. AVERAGE(vùng): trung bình cộng. MAX/MIN(vùng): giá trị lớn nhất/nhỏ nhất. COUNT(vùng): đếm ô chứa số. COUNTA(vùng): đếm ô có dữ liệu (kể cả chữ).</td>
+          <td data-label="Ví dụ" class="ex-line">👉 =SUM(B2:B10) cộng toàn bộ điểm; =COUNTA(A2:A10) đếm số học sinh có tên.</td>
+        </tr>
+        <tr>
+          <td data-label="Chủ đề">Hàm điều kiện</td>
+          <td data-label="Kiến thức">IF(điều kiện, giá trị đúng, giá trị sai): trả về 1 trong 2 kết quả. IF lồng nhau: đặt IF khác vào phần "giá trị sai" để xét nhiều mức. COUNTIF(vùng, điều kiện): đếm theo điều kiện. SUMIF(vùng điều kiện, điều kiện, vùng tính tổng): cộng theo điều kiện.</td>
+          <td data-label="Ví dụ" class="ex-line">👉 =IF(B2&gt;=8,"Giỏi",IF(B2&gt;=6.5,"Khá","Trung bình")); =COUNTIF(B2:B10,"&gt;=8") đếm học sinh đạt từ 8 trở lên.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>II. Xem trước: Bảng điểm lớp 10A1</h2>
+    <p>Bảng dữ liệu dùng cho phần thực hành — xem trước ở đây, làm bài thật trên file Excel tải về ở trang Bài tập.</p>
+    <div class="data-preview-wrap">
+      <table class="data-preview">
+        <tr><th>STT</th><th>Họ và tên</th><th>Giới tính</th><th>Toán</th><th>Văn</th><th>Anh</th><th>Điểm TB</th><th>Xếp loại</th></tr>
+        <tr><td>1</td><td>Nguyễn Văn An</td><td>Nam</td><td>8.5</td><td>7</td><td>8</td><td class="blank-cell">?</td><td class="blank-cell">?</td></tr>
+        <tr><td>2</td><td>Trần Thị Bích</td><td>Nữ</td><td>6.5</td><td>8.5</td><td>7.5</td><td class="blank-cell">?</td><td class="blank-cell">?</td></tr>
+        <tr><td>3</td><td>Lê Hoàng Cường</td><td>Nam</td><td>4.5</td><td>5</td><td>6</td><td class="blank-cell">?</td><td class="blank-cell">?</td></tr>
+        <tr><td>4</td><td>Phạm Thị Dung</td><td>Nữ</td><td>9</td><td>9.5</td><td>8.5</td><td class="blank-cell">?</td><td class="blank-cell">?</td></tr>
+        <tr><td>5</td><td>Hoàng Văn Em</td><td>Nam</td><td>5.5</td><td>6</td><td>5.5</td><td class="blank-cell">?</td><td class="blank-cell">?</td></tr>
+        <tr><td>...</td><td colspan="7">còn 5 học sinh nữa trong file tải về</td></tr>
+      </table>
+    </div>
+    <div class="callout tip">💡 Ô có dấu "?" (tô vàng trong file thật) là ô còn trống — nhiệm vụ của em là viết công thức để tính.</div>
+  </div>
+
+  <div class="btn-row mt-md">
+    <a class="btn btn-primary btn-lg" href="bai-tap.html">Sang phần Bài tập →</a>
+  </div>
+</div>
+
+</body>
+</html>

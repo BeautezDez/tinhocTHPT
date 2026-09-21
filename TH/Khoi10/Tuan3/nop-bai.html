@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nộp bài · Tuần 3 · Thực hành Excel</title>
+<link rel="stylesheet" href="../../../assets/site.css">
+<link rel="stylesheet" href="../style.css">
+<script src="https://cdn.jsdelivr.net/npm/pocketbase@0.21.1/dist/pocketbase.umd.js"></script>
+</head>
+<body>
+
+<div class="topnav">
+  <a class="brand" href="../../../index.html">Tin học <small>Lớp 10</small></a>
+  <a class="navlink" href="../index.html" style="border-bottom-color:transparent;">Thực hành Excel</a>
+  <a class="navlink" href="ly-thuyet.html">📘 Tuần 3</a>
+  <a class="navlink" href="bai-tap.html">📝 Bài tập</a>
+  <a class="navlink active" href="nop-bai.html">📤 Nộp bài</a>
+  <span class="spacer"></span>
+</div>
+
+<div class="page-wrap">
+  <div class="crumb"><a href="../../../index.html">Trang chủ</a> / Lớp 10 / <a href="../index.html">Thực hành Excel</a> / Tuần 3 / Nộp bài</div>
+  <h1 class="page-title">📤 Nộp bài thực hành — Tuần 3</h1>
+
+  <div class="student-badge">
+    <div class="sb-info">
+      <b id="badge-hoten">—</b>
+      <span id="badge-lop">—</span>
+    </div>
+    <button onclick="doLogout()">Đăng xuất</button>
+  </div>
+
+  <div class="deadline-banner" id="deadline-banner" style="display:none;">
+    <div class="db-icon">⏰</div>
+    <div id="deadline-text">Đang tải hạn nộp…</div>
+  </div>
+
+  <div class="card">
+    <h2>Nộp file bài làm</h2>
+    <p style="font-size:13px; color:var(--sub); margin-top:-6px;">Chấp nhận file <b>.xlsx</b> — dung lượng tối đa 20MB. Có thể nộp lại nhiều lần, hệ thống giữ lại toàn bộ lịch sử nộp bài.</p>
+
+    <div class="upload-dropzone" id="dropzone" onclick="document.getElementById('file-input').click()">
+      <div class="ud-icon">📊</div>
+      <div class="ud-text">Bấm để chọn file, hoặc kéo-thả file vào đây</div>
+      <div class="ud-file-name" id="file-name-display"></div>
+      <input type="file" id="file-input" accept=".xlsx,.xls">
+    </div>
+
+    <div class="form-field" style="margin-top:16px;">
+      <label>Ghi chú (tuỳ chọn)</label>
+      <input type="text" id="note-input" placeholder="VD: em nộp lại vì sửa công thức câu 5">
+    </div>
+
+    <button class="btn btn-primary" style="width:100%; margin-top:8px;" id="submit-btn" onclick="doSubmit()">Nộp bài</button>
+    <div class="form-msg" id="submit-msg"></div>
+  </div>
+
+  <div class="card">
+    <h2>Lịch sử nộp bài của em</h2>
+    <div class="submission-list" id="submission-list">
+      <p style="color:var(--sub); font-size:13px;">Đang tải…</p>
+    </div>
+  </div>
+</div>
+
+<script>const BAI_ID = 'excel-tuan3';</script>
+<script src="../../pocketbase-shared.js"></script>
+<script>
+  const session = SessionManager.load();
+  if (!session) {
+    window.location.href = 'dang-nhap.html';
+  }
+
+  document.getElementById('badge-hoten').textContent = session.hoTen;
+  document.getElementById('badge-lop').textContent = 'Lớp ' + session.lop;
+
+  function doLogout() {
+    SessionManager.clear();
+    window.location.href = 'dang-nhap.html';
+  }
+
+  let selectedFile = null;
+  const dropzone = document.getElementById('dropzone');
+  const fileInput = document.getElementById('file-input');
+
+  fileInput.addEventListener('change', (e) => {
+    if (e.target.files.length) setSelectedFile(e.target.files[0]);
+  });
+  dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('drag-over'); });
+  dropzone.addEventListener('dragleave', () => dropzone.classList.remove('drag-over'));
+  dropzone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropzone.classList.remove('drag-over');
+    if (e.dataTransfer.files.length) setSelectedFile(e.dataTransfer.files[0]);
+  });
+
+  function setSelectedFile(file) {
+    const validExt = /\.(xlsx|xls)$/i;
+    if (!validExt.test(file.name)) {
+      showMsg('submit-msg', '❌ Chỉ chấp nhận file .xlsx hoặc .xls.', false);
+      selectedFile = null;
+      document.getElementById('file-name-display').textContent = '';
+      return;
+    }
+    if (file.size > 20 * 1024 * 1024) {
+      showMsg('submit-msg', '❌ File vượt quá 20MB.', false);
+      selectedFile = null;
+      document.getElementById('file-name-display').textContent = '';
+      return;
+    }
+    selectedFile = file;
+    document.getElementById('file-name-display').textContent = '📎 ' + file.name;
+    document.getElementById('submit-msg').className = 'form-msg';
+  }
+
+  function showMsg(elId, text, ok) {
+    const el = document.getElementById(elId);
+    el.textContent = text;
+    el.className = 'form-msg show ' + (ok ? 'ok' : 'bad');
+  }
+
+  function formatDate(d) {
+    return new Date(d).toLocaleString('vi-VN', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' });
+  }
+
+  let assignmentInfo = null;
+  async function loadDeadline() {
+    assignmentInfo = await getAssignmentInfo();
+    const banner = document.getElementById('deadline-banner');
+    const text = document.getElementById('deadline-text');
+    if (!assignmentInfo || !assignmentInfo.han_nop) return;
+    const hanNop = new Date(assignmentInfo.han_nop);
+    const isOverdue = new Date() > hanNop;
+    banner.style.display = 'flex';
+    banner.classList.toggle('overdue', isOverdue);
+    text.innerHTML = isOverdue
+      ? `Đã <b>quá hạn nộp</b> (hạn: ${formatDate(hanNop)}). Bạn vẫn có thể nộp nhưng bài sẽ bị đánh dấu <b>nộp trễ</b>.`
+      : `Hạn nộp: <b>${formatDate(hanNop)}</b>`;
+  }
+
+  async function doSubmit() {
+    if (!selectedFile) {
+      showMsg('submit-msg', '❌ Vui lòng chọn file trước khi nộp.', false);
+      return;
+    }
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    btn.textContent = 'Đang nộp…';
+
+    const note = document.getElementById('note-input').value.trim();
+    const result = await submitAssignment({
+      studentId: session.studentId,
+      hoTen: session.hoTen,
+      lop: session.lop,
+      file: selectedFile,
+      note
+    });
+
+    btn.disabled = false;
+    btn.textContent = 'Nộp bài';
+
+    if (!result.success) {
+      showMsg('submit-msg', '❌ ' + result.message, false);
+      return;
+    }
+
+    showMsg('submit-msg', result.laNopTre
+      ? `✅ Nộp bài thành công (lần ${result.lanNopThu}) — ⚠️ bài này được đánh dấu nộp trễ.`
+      : `✅ Nộp bài thành công (lần ${result.lanNopThu}).`, true);
+
+    selectedFile = null;
+    document.getElementById('file-name-display').textContent = '';
+    document.getElementById('note-input').value = '';
+    fileInput.value = '';
+    loadSubmissionHistory();
+  }
+
+  async function loadSubmissionHistory() {
+    const listEl = document.getElementById('submission-list');
+    const items = await getMySubmissions(session.studentId);
+
+    if (!items.length) {
+      listEl.innerHTML = '<p style="color:var(--sub); font-size:13px;">Em chưa nộp bài nào.</p>';
+      return;
+    }
+
+    listEl.innerHTML = items.map((item, idx) => {
+      const isLatest = idx === 0;
+      const fileUrl = pb.files.getUrl(item, item.file);
+      const badge = item.la_nop_tre
+        ? '<span class="badge-tag late">Nộp trễ</span>'
+        : '<span class="badge-tag ontime">Đúng hạn</span>';
+      return `
+        <div class="submission-row ${isLatest ? 'is-latest' : ''}">
+          <div class="sr-icon">📊</div>
+          <div class="sr-info">
+            <b>Lần nộp ${item.lan_nop_thu} ${isLatest ? '(mới nhất)' : ''} ${badge}</b>
+            <span>${formatDate(item.created)}${item.note ? ' — ' + item.note : ''}</span>
+          </div>
+          <a class="sr-download" href="${fileUrl}" target="_blank">Tải xuống</a>
+        </div>`;
+    }).join('');
+  }
+
+  loadDeadline();
+  loadSubmissionHistory();
+</script>
+</body>
+</html>

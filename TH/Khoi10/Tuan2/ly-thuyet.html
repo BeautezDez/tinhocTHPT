@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lý thuyết Tuần 2 · Thực hành Excel · Lớp 10</title>
+<link rel="stylesheet" href="../../../assets/site.css">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="topnav">
+  <a class="brand" href="../../../index.html">Tin học <small>Lớp 10</small></a>
+  <a class="navlink" href="../index.html" style="border-bottom-color:transparent;">Thực hành Excel</a>
+  <a class="navlink active" href="ly-thuyet.html">📘 Tuần 2</a>
+  <a class="navlink" href="bai-tap.html">📝 Bài tập</a>
+  <a class="navlink" href="dang-nhap.html">📤 Nộp bài</a>
+  <span class="spacer"></span>
+</div>
+
+<div class="page-wrap">
+  <div class="crumb"><a href="../../../index.html">Trang chủ</a> / Lớp 10 / <a href="../index.html">Thực hành Excel</a> / Tuần 2</div>
+  <h1 class="page-title">Tuần 2 — Hàm nâng cao, sắp xếp, lọc & biểu đồ</h1>
+  <p class="page-subtitle">Hàm văn bản & ngày tháng · VLOOKUP · Sort & Filter · Biểu đồ · Conditional Formatting · In ấn</p>
+
+  <div class="card">
+    <h2>I. Kiến thức cần nhớ</h2>
+    <table class="theory-table">
+      <thead><tr><th>Chủ đề</th><th>Kiến thức ngắn gọn</th><th>Ví dụ minh hoạ</th></tr></thead>
+      <tbody>
+        <tr>
+          <td data-label="Chủ đề">Hàm xử lý văn bản &amp; ngày tháng</td>
+          <td data-label="Kiến thức">LEFT(chuỗi, n): lấy n ký tự từ trái. RIGHT(chuỗi, n): lấy n ký tự từ phải. MID(chuỗi, vị trí, số ký tự): lấy ký tự ở giữa. LEN(chuỗi): đếm số ký tự. UPPER/LOWER: viết hoa/thường toàn bộ. TODAY(): ngày hiện tại. YEAR/MONTH/DAY: tách năm/tháng/ngày.</td>
+          <td data-label="Ví dụ" class="ex-line">👉 =LEFT("Nguyen Van A",7) trả về "Nguyen "; =MID("Nguyen Van A",9,3) trả về "Van".</td>
+        </tr>
+        <tr>
+          <td data-label="Chủ đề">Hàm tra cứu dữ liệu (VLOOKUP)</td>
+          <td data-label="Kiến thức">VLOOKUP(giá trị tìm, bảng dò tìm, số cột trả về, 0): tìm giá trị theo cột dọc, số 0 là tìm chính xác. Bảng dò tìm nên dùng địa chỉ tuyệt đối ($) để kéo công thức không bị lệch vùng. HLOOKUP tương tự nhưng dò theo hàng ngang.</td>
+          <td data-label="Ví dụ" class="ex-line">👉 =VLOOKUP(A2,$D$2:$F$10,3,0) — tìm A2 trong cột đầu vùng D2:F10, trả về giá trị cột thứ 3.</td>
+        </tr>
+        <tr>
+          <td data-label="Chủ đề">Sắp xếp &amp; lọc dữ liệu</td>
+          <td data-label="Kiến thức">Sort: Data → Sort → chọn cột &amp; thứ tự Tăng dần/Giảm dần, có thể sắp theo nhiều tiêu chí (Add Level). Filter: Data → Filter → bấm mũi tên đầu cột → chọn điều kiện lọc.</td>
+          <td data-label="Ví dụ" class="ex-line">👉 Sắp xếp bảng lương theo Tổng lương giảm dần để biết ai nhận lương cao nhất.</td>
+        </tr>
+        <tr>
+          <td data-label="Chủ đề">Biểu đồ trong Excel</td>
+          <td data-label="Kiến thức">Các loại thường dùng: Cột (so sánh số liệu), Đường (xu hướng theo thời gian), Tròn (tỉ lệ %). Tạo: bôi đen dữ liệu → Insert → chọn loại biểu đồ. Chỉnh: Chart Design → đổi tiêu đề, chú thích, trục.</td>
+          <td data-label="Ví dụ" class="ex-line">👉 Biểu đồ cột so sánh Lương cơ bản của từng nhân viên trong phòng.</td>
+        </tr>
+        <tr>
+          <td data-label="Chủ đề">Định dạng có điều kiện</td>
+          <td data-label="Kiến thức">Home → Conditional Formatting: tự động đổi màu ô theo điều kiện. Data Bars: thanh màu tỉ lệ giá trị. Icon Sets: biểu tượng theo mức giá trị.</td>
+          <td data-label="Ví dụ" class="ex-line">👉 Tô đỏ tự động các ô Lương thực nhận dưới mức lương tối thiểu để dễ rà soát.</td>
+        </tr>
+        <tr>
+          <td data-label="Chủ đề">In ấn &amp; trình bày bảng tính</td>
+          <td data-label="Kiến thức">Page Setup: chọn khổ giấy, lề, hướng in (Portrait/Landscape). Print Titles: lặp lại hàng tiêu đề ở đầu mỗi trang khi in nhiều trang. Print Preview (Ctrl+P): xem trước khi in.</td>
+          <td data-label="Ví dụ" class="ex-line">👉 In bảng lương ra giấy A4, hướng ngang (Landscape) để vừa hết các cột.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>II. Xem trước: Bảng lương phòng Kinh doanh</h2>
+    <p>Bảng dữ liệu 10 nhân viên dùng cho phần thực hành — xem trước ở đây, làm bài thật trên file Excel tải về ở trang Bài tập.</p>
+    <div class="data-preview-wrap">
+      <table class="data-preview">
+        <tr><th>STT</th><th>Mã NV</th><th>Họ và tên</th><th>Chức vụ</th><th>Lương cơ bản</th><th>Ngày công</th><th>Phụ cấp</th><th>Tổng lương</th></tr>
+        <tr><td>1</td><td>NV01</td><td>Nguyễn Minh Tuấn</td><td>Nhân viên</td><td>6,000,000</td><td>26</td><td>500,000</td><td class="blank-cell">?</td></tr>
+        <tr><td>2</td><td>NV02</td><td>Trần Thu Hà</td><td>Trưởng nhóm</td><td>8,500,000</td><td>25</td><td>800,000</td><td class="blank-cell">?</td></tr>
+        <tr><td>3</td><td>NV03</td><td>Lê Quốc Bảo</td><td>Nhân viên</td><td>6,000,000</td><td>22</td><td>500,000</td><td class="blank-cell">?</td></tr>
+        <tr><td>...</td><td colspan="7">còn 7 nhân viên nữa trong file tải về</td></tr>
+      </table>
+    </div>
+    <div class="callout tip">💡 Ô có dấu "?" (tô vàng trong file thật) là ô còn trống — nhiệm vụ của em là viết công thức để tính.</div>
+
+    <h3>Bảng phụ: Đơn giá theo Chức vụ (để tra bằng VLOOKUP)</h3>
+    <div class="data-preview-wrap">
+      <table class="data-preview">
+        <tr><th>Chức vụ</th><th>Hệ số lương</th><th>Ghi chú</th></tr>
+        <tr><td>Nhân viên</td><td>1</td><td>Hệ số cơ bản</td></tr>
+        <tr><td>Trưởng nhóm</td><td>1.3</td><td>Phụ cấp quản lý nhóm</td></tr>
+        <tr><td>Trưởng phòng</td><td>1.6</td><td>Phụ cấp quản lý phòng</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="btn-row mt-md">
+    <a class="btn btn-primary btn-lg" href="bai-tap.html">Sang phần Bài tập →</a>
+  </div>
+</div>
+
+</body>
+</html>

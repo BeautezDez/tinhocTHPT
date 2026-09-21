@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài tập Tuần 3 · Thực hành Excel · Lớp 10</title>
+<link rel="stylesheet" href="../../../assets/site.css">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="topnav">
+  <a class="brand" href="../../../index.html">Tin học <small>Lớp 10</small></a>
+  <a class="navlink" href="../index.html" style="border-bottom-color:transparent;">Thực hành Excel</a>
+  <a class="navlink" href="ly-thuyet.html">📘 Tuần 3</a>
+  <a class="navlink active" href="bai-tap.html">📝 Bài tập</a>
+  <a class="navlink" href="dang-nhap.html">📤 Nộp bài</a>
+  <span class="spacer"></span>
+</div>
+
+<div class="page-wrap">
+  <div class="crumb"><a href="../../../index.html">Trang chủ</a> / Lớp 10 / <a href="../index.html">Thực hành Excel</a> / Tuần 3 / Bài tập</div>
+  <h1 class="page-title">📝 Đề tổng hợp — Bảng quản lý kho hàng</h1>
+  <p class="page-subtitle">Tải file về, làm trực tiếp trên Excel, lưu lại rồi nộp ở trang kế tiếp. Đề này kết hợp toàn bộ kiến thức 2 tuần trước.</p>
+
+  <div class="download-card">
+    <div class="dc-icon">📊</div>
+    <div class="dc-text">
+      <b>Tuan_3_On_tap_Excel.xlsx</b>
+      <span>Bảng kho hàng 10 mặt hàng — đề tổng hợp giống bài kiểm tra thực hành thật</span>
+    </div>
+    <a class="btn" href="../files/Tuan_3_On_tap_Excel.xlsx" download>⬇ Tải file về</a>
+  </div>
+
+  <div class="card">
+    <h2>Hướng dẫn từng bài</h2>
+    <div class="task-list">
+      <div class="task-item">
+        <div class="ti-head"><div class="ti-num">1</div><div class="ti-title">Tính Thành tiền = Tồn kho × Đơn giá</div></div>
+        <div class="ti-guide">Tại ô <code>G16</code>: <code>=E16*F16</code>. Kéo xuống hết 10 dòng.</div>
+      </div>
+      <div class="task-item">
+        <div class="ti-head"><div class="ti-num">2</div><div class="ti-title">Dùng IF điền cột Tình trạng</div></div>
+        <div class="ti-guide"><code>=IF(E16&lt;10,"Sắp hết hàng","Còn hàng")</code> tại ô <code>H16</code>, kéo xuống.</div>
+      </div>
+      <div class="task-item">
+        <div class="ti-head"><div class="ti-num">3</div><div class="ti-title">Dùng COUNTIF đếm số mặt hàng "Sắp hết hàng"</div></div>
+        <div class="ti-guide"><code>=COUNTIF(H16:H25,"Sắp hết hàng")</code>.</div>
+      </div>
+      <div class="task-item">
+        <div class="ti-head"><div class="ti-num">4</div><div class="ti-title">Dùng SUMIF tính tổng Thành tiền nhóm "Văn phòng phẩm"</div></div>
+        <div class="ti-guide"><code>=SUMIF(D16:D25,"Văn phòng phẩm",G16:G25)</code>.</div>
+      </div>
+      <div class="task-item">
+        <div class="ti-head"><div class="ti-num">5</div><div class="ti-title">Dùng LEFT kiểm tra Mã hàng đều bắt đầu bằng "SP"</div></div>
+        <div class="ti-guide">Ở 1 cột phụ: <code>=LEFT(B16,2)</code> — nếu kết quả không phải "SP" thì mã hàng đó bị sai.</div>
+      </div>
+      <div class="task-item">
+        <div class="ti-head"><div class="ti-num">6</div><div class="ti-title">Sắp xếp theo Thành tiền giảm dần, sau đó Filter nhóm "Văn phòng phẩm"</div></div>
+        <div class="ti-guide">Data → Sort → cột "Thành tiền" → Largest to Smallest. Sau đó Data → Filter → cột "Loại" → chỉ tick "Văn phòng phẩm".</div>
+      </div>
+      <div class="task-item">
+        <div class="ti-head"><div class="ti-num">7</div><div class="ti-title">Biểu đồ cột Thành tiền + Conditional Formatting</div></div>
+        <div class="ti-guide">Bôi đen "Tên hàng" và "Thành tiền" → Insert → Column Chart. Sau đó bôi đen cả bảng → Conditional Formatting → New Rule → dùng công thức <code>=$H16="Sắp hết hàng"</code> → tô nền đỏ cho cả dòng.</div>
+      </div>
+      <div class="task-item">
+        <div class="ti-head"><div class="ti-num">8</div><div class="ti-title">Thiết lập trang in A4 ngang, lặp lại tiêu đề, rồi luyện lại có bấm giờ</div></div>
+        <div class="ti-guide">Page Layout → Size → A4, Orientation → Landscape, Print Titles → Rows to repeat at top → hàng 15. Sau khi setup xong, đặt đồng hồ 45 phút và làm lại toàn bộ đề lần 2 để luyện tốc độ.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="btn-row mt-md">
+    <a class="btn btn-primary btn-lg" href="dang-nhap.html">Sang phần Nộp bài →</a>
+  </div>
+</div>
+
+</body>
+</html>

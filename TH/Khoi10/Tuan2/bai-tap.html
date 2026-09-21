@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài tập Tuần 2 · Thực hành Excel · Lớp 10</title>
+<link rel="stylesheet" href="../../../assets/site.css">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="topnav">
+  <a class="brand" href="../../../index.html">Tin học <small>Lớp 10</small></a>
+  <a class="navlink" href="../index.html" style="border-bottom-color:transparent;">Thực hành Excel</a>
+  <a class="navlink" href="ly-thuyet.html">📘 Tuần 2</a>
+  <a class="navlink active" href="bai-tap.html">📝 Bài tập</a>
+  <a class="navlink" href="dang-nhap.html">📤 Nộp bài</a>
+  <span class="spacer"></span>
+</div>
+
+<div class="page-wrap">
+  <div class="crumb"><a href="../../../index.html">Trang chủ</a> / Lớp 10 / <a href="../index.html">Thực hành Excel</a> / Tuần 2 / Bài tập</div>
+  <h1 class="page-title">📝 Bài tập thực hành — Bảng lương phòng Kinh doanh</h1>
+  <p class="page-subtitle">Tải file về, làm trực tiếp trên Excel, lưu lại rồi nộp ở trang kế tiếp.</p>
+
+  <div class="download-card">
+    <div class="dc-icon">📊</div>
+    <div class="dc-text">
+      <b>Tuan_2_On_tap_Excel.xlsx</b>
+      <span>Có sẵn bảng lương 10 nhân viên + bảng phụ hệ số lương để tra VLOOKUP</span>
+    </div>
+    <a class="btn" href="../files/Tuan_2_On_tap_Excel.xlsx" download>⬇ Tải file về</a>
+  </div>
+
+  <div class="card">
+    <h2>Hướng dẫn từng bài</h2>
+    <div class="task-list">
+      <div class="task-item">
+        <div class="ti-head"><div class="ti-num">1</div><div class="ti-title">Tính Tổng lương = Lương cơ bản/26 × Ngày công + Phụ cấp</div></div>
+        <div class="ti-guide">Tại ô <code>H16</code>: <code>=E16/26*F16+G16</code>. Kéo Fill Handle xuống hết 10 dòng.</div>
+      </div>
+      <div class="task-item">
+        <div class="ti-head"><div class="ti-num">2</div><div class="ti-title">Dùng VLOOKUP tra Hệ số lương từ Bảng phụ theo Chức vụ</div></div>
+        <div class="ti-guide">Chèn thêm 1 cột "Hệ số". Gõ <code>=VLOOKUP(D16,$A$31:$C$33,3,0)</code> — nhớ dùng <code>$</code> để khi kéo xuống vùng dò tìm không bị lệch.</div>
+      </div>
+      <div class="task-item">
+        <div class="ti-head"><div class="ti-num">3</div><div class="ti-title">Sắp xếp bảng lương theo Tổng lương giảm dần</div></div>
+        <div class="ti-guide">Bôi đen cả bảng (A15:H25) → Data → Sort → chọn cột "Tổng lương" → Order: Largest to Smallest.</div>
+      </div>
+      <div class="task-item">
+        <div class="ti-head"><div class="ti-num">4</div><div class="ti-title">Dùng Filter lọc nhân viên có Ngày công &lt; 24</div></div>
+        <div class="ti-guide">Bôi đen hàng tiêu đề → Data → Filter. Bấm mũi tên ở cột "Ngày công" → Number Filters → Less Than → gõ 24.</div>
+      </div>
+      <div class="task-item">
+        <div class="ti-head"><div class="ti-num">5</div><div class="ti-title">Tạo biểu đồ cột so sánh Tổng lương của 10 nhân viên</div></div>
+        <div class="ti-guide">Bôi đen 2 cột "Họ và tên" và "Tổng lương" (giữ Ctrl để chọn không liền kề) → Insert → Column Chart. Đặt tiêu đề biểu đồ rõ ràng, vd "Tổng lương nhân viên tháng 1".</div>
+      </div>
+      <div class="task-item">
+        <div class="ti-head"><div class="ti-num">6</div><div class="ti-title">Conditional Formatting: tô đỏ Ngày công &lt; 24, tô xanh Ngày công = 26</div></div>
+        <div class="ti-guide">Bôi đen cột "Ngày công" → Home → Conditional Formatting → New Rule → "Format cells that contain" → Less than 24 → chọn màu đỏ. Lặp lại với điều kiện Equal to 26 → chọn màu xanh.</div>
+      </div>
+      <div class="task-item">
+        <div class="ti-head"><div class="ti-num">7</div><div class="ti-title">Thiết lập trang in: A4, hướng ngang, lặp lại hàng tiêu đề</div></div>
+        <div class="ti-guide">Page Layout → Size → A4. Page Layout → Orientation → Landscape. Page Layout → Print Titles → Rows to repeat at top → chọn hàng 15.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="btn-row mt-md">
+    <a class="btn btn-primary btn-lg" href="dang-nhap.html">Sang phần Nộp bài →</a>
+  </div>
+</div>
+
+</body>
+</html>

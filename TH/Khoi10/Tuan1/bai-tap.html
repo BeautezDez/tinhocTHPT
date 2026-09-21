@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bài tập Tuần 1 · Thực hành Excel · Lớp 10</title>
+<link rel="stylesheet" href="../../../assets/site.css">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="topnav">
+  <a class="brand" href="../../../index.html">Tin học <small>Lớp 10</small></a>
+  <a class="navlink" href="../index.html" style="border-bottom-color:transparent;">Thực hành Excel</a>
+  <a class="navlink" href="ly-thuyet.html">📘 Tuần 1</a>
+  <a class="navlink active" href="bai-tap.html">📝 Bài tập</a>
+  <a class="navlink" href="dang-nhap.html">📤 Nộp bài</a>
+  <span class="spacer"></span>
+</div>
+
+<div class="page-wrap">
+  <div class="crumb"><a href="../../../index.html">Trang chủ</a> / Lớp 10 / <a href="../index.html">Thực hành Excel</a> / Tuần 1 / Bài tập</div>
+  <h1 class="page-title">📝 Bài tập thực hành — Bảng điểm lớp 10A1</h1>
+  <p class="page-subtitle">Tải file về, làm trực tiếp trên Excel, lưu lại rồi nộp ở trang kế tiếp.</p>
+
+  <div class="download-card">
+    <div class="dc-icon">📊</div>
+    <div class="dc-text">
+      <b>Tuan_1_On_tap_Excel.xlsx</b>
+      <span>Đã có sẵn bảng dữ liệu 10 học sinh — chỉ cần điền công thức vào các ô còn trống</span>
+    </div>
+    <a class="btn" href="../files/Tuan_1_On_tap_Excel.xlsx" download>⬇ Tải file về</a>
+  </div>
+
+  <div class="card">
+    <h2>Hướng dẫn từng bài</h2>
+    <div class="task-list">
+      <div class="task-item">
+        <div class="ti-head"><div class="ti-num">1</div><div class="ti-title">Tính cột Điểm TB bằng hàm AVERAGE</div></div>
+        <div class="ti-guide">Tại ô <code>G16</code>, gõ <code>=AVERAGE(D16:F16)</code> rồi kéo Fill Handle xuống hết 10 dòng.</div>
+      </div>
+      <div class="task-item">
+        <div class="ti-head"><div class="ti-num">2</div><div class="ti-title">Dùng IF xếp loại Đạt / Không đạt vào 1 cột phụ</div></div>
+        <div class="ti-guide">Chèn thêm 1 cột (chuột phải vào cột I → Insert). Gõ <code>=IF(G16&gt;=5,"Đạt","Không đạt")</code>.</div>
+      </div>
+      <div class="task-item">
+        <div class="ti-head"><div class="ti-num">3</div><div class="ti-title">Dùng IF lồng nhau xếp loại vào cột Xếp loại</div></div>
+        <div class="ti-guide">Tại ô <code>H16</code>: <code>=IF(G16&gt;=8,"Giỏi",IF(G16&gt;=6.5,"Khá","Trung bình"))</code>. Kéo xuống hết bảng.</div>
+      </div>
+      <div class="task-item">
+        <div class="ti-head"><div class="ti-num">4</div><div class="ti-title">Dùng SUM, MAX, MIN tính Tổng/Cao nhất/Thấp nhất điểm Toán</div></div>
+        <div class="ti-guide">Ở 1 ô trống bên dưới bảng: <code>=SUM(D16:D25)</code>, <code>=MAX(D16:D25)</code>, <code>=MIN(D16:D25)</code>.</div>
+      </div>
+      <div class="task-item">
+        <div class="ti-head"><div class="ti-num">5</div><div class="ti-title">Dùng COUNTIF đếm số học sinh xếp loại Giỏi</div></div>
+        <div class="ti-guide"><code>=COUNTIF(H16:H25,"Giỏi")</code> — đếm số ô trong cột Xếp loại có giá trị "Giỏi".</div>
+      </div>
+      <div class="task-item">
+        <div class="ti-head"><div class="ti-num">6</div><div class="ti-title">Dùng SUMIF tính tổng điểm Toán của các bạn Nam</div></div>
+        <div class="ti-guide"><code>=SUMIF(C16:C25,"Nam",D16:D25)</code> — vùng điều kiện là cột Giới tính, vùng tính tổng là cột Toán.</div>
+      </div>
+      <div class="task-item">
+        <div class="ti-head"><div class="ti-num">7</div><div class="ti-title">Định dạng bảng</div></div>
+        <div class="ti-guide">Bôi đen hàng tiêu đề (dòng 15) → Home → tô đậm (Bold) + Fill Color. Bôi đen cả bảng → Borders → All Borders. Chọn cột Giới tính và Xếp loại → Center để căn giữa.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="btn-row mt-md">
+    <a class="btn btn-primary btn-lg" href="dang-nhap.html">Sang phần Nộp bài →</a>
+  </div>
+</div>
+
+</body>
+</html>

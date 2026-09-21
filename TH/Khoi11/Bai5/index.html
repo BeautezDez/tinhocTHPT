@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thực hành · Đăng nhập · Bài 5</title>
+<link rel="stylesheet" href="../../../assets/site.css">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/pocketbase@0.21.1/dist/pocketbase.umd.js"></script>
+</head>
+<body>
+
+<div class="topnav">
+  <a class="brand" href="../../../index.html">Tin học <small>Lớp 11</small></a>
+  <a class="navlink" href="../../../LT/Khoi11/Bai5/index.html" style="border-bottom-color:transparent;">Bài 5</a>
+  <a class="navlink" href="../../../LT/Khoi11/Bai5/ly-thuyet.html">📘 Lý thuyết</a>
+  <a class="navlink" href="../../../LT/Khoi11/Bai5/tuong-tac.html">🎮 Tương tác</a>
+  <a class="navlink active" href="index.html">💻 Thực hành</a>
+  <span class="spacer"></span>
+</div>
+
+<div class="page-wrap">
+  <div class="crumb"><a href="../../../index.html">Trang chủ</a> / <a href="../../../LT/Khoi11/index.html">Lớp 11</a> / <a href="../../../LT/Khoi11/Bai5/index.html">Bài 5</a> / Thực hành</div>
+  <h1 class="page-title">💻 Thực hành — Đăng nhập</h1>
+  <p class="page-subtitle">Đăng nhập bằng tài khoản giáo viên đã cấp để nộp bài thực hành.</p>
+
+  <div class="card auth-card">
+    <h2>Đăng nhập</h2>
+    <div class="form-field">
+      <label>Họ và tên</label>
+      <input type="text" id="login-hoten" placeholder="Nguyễn Văn A">
+    </div>
+    <div class="form-field">
+      <label>Lớp</label>
+      <input type="text" id="login-lop" placeholder="11A1">
+    </div>
+    <div class="form-field">
+      <label>Mật khẩu</label>
+      <input type="password" id="login-password" placeholder="Mật khẩu được cấp">
+    </div>
+    <button class="btn btn-primary" style="width:100%;" onclick="doLogin()">Đăng nhập</button>
+    <div class="form-msg" id="login-msg"></div>
+    <p style="text-align:center; font-size:12px; color:var(--sub); margin-top:16px;">Chưa có tài khoản? Liên hệ giáo viên để được cấp. Tài khoản dùng chung cho mọi bài thực hành trong năm học.</p>
+  </div>
+</div>
+
+<script>const BAI_ID = 'khoi11-bai5';</script>
+<script src="../../pocketbase-shared.js"></script>
+<script>
+  // Nếu đã đăng nhập từ trước, chuyển thẳng sang trang nộp bài
+  const existingSession = SessionManager.load();
+  if (existingSession) {
+    window.location.href = 'nop-bai.html';
+  }
+
+  function showMsg(elId, text, ok) {
+    const el = document.getElementById(elId);
+    el.textContent = text;
+    el.className = 'form-msg show ' + (ok ? 'ok' : 'bad');
+  }
+
+  async function doLogin() {
+    const hoTen = document.getElementById('login-hoten').value.trim();
+    const lop = document.getElementById('login-lop').value.trim();
+    const password = document.getElementById('login-password').value;
+
+    if (!hoTen || !lop || !password) {
+      showMsg('login-msg', 'Vui lòng điền đầy đủ họ tên, lớp và mật khẩu.', false);
+      return;
+    }
+
+    const result = await loginStudent(hoTen, lop, password);
+
+    if (!result.success) {
+      showMsg('login-msg', '❌ ' + result.message, false);
+      return;
+    }
+
+    SessionManager.save(result.student_id, hoTen, lop);
+    showMsg('login-msg', '✅ Đăng nhập thành công!', true);
+    setTimeout(() => window.location.href = 'nop-bai.html', 500);
+  }
+
+  // Cho phép nhấn Enter để đăng nhập
+  document.getElementById('login-password').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') doLogin();
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,341 @@
+/* ============================================================
+   style.css — Riêng cho Khối 11 / Bài 5: Kết nối máy tính
+   với các thiết bị số.
+   ============================================================ */
+
+/* ---- Bảng so sánh ---- */
+.compare-table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin: 10px 0 18px; }
+.compare-table th, .compare-table td { border: 1px solid var(--stroke); padding: 9px 12px; text-align: left; }
+.compare-table th { background: var(--primary-dark); color: white; }
+.compare-table tr:nth-child(even) td { background: var(--white); }
+
+/* ---- Sơ đồ tổng kết (mindmap) ---- */
+.mindmap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 16px 0; }
+.mindmap .mm-col { background: var(--white); border: 1px solid var(--stroke); border-radius: 12px; padding: 14px; }
+.mindmap .mm-col h4 { margin: 0 0 8px; font-size: 13px; color: var(--primary); text-transform: uppercase; letter-spacing: 0.3px; }
+.mindmap .mm-col ul { margin: 0; padding-left: 18px; font-size: 13.5px; line-height: 1.7; }
+@media (max-width: 640px) { .mindmap { grid-template-columns: 1fr; } }
+
+/* ---- Ảnh minh hoạ trong bài ---- */
+.lesson-figure { margin: 14px 0 18px; text-align: center; }
+.lesson-figure img { border-radius: 12px; border: 1px solid var(--stroke); max-height: 320px; margin: 0 auto; }
+.lesson-figure figcaption { font-size: 12px; color: var(--sub); margin-top: 8px; font-style: italic; }
+.figure-row { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin: 14px 0 18px; }
+.figure-row .lesson-figure { flex: 1; min-width: 160px; margin: 0; }
+.figure-row .lesson-figure img { max-height: 160px; width: 100%; object-fit: cover; }
+
+/* ---- Port picker: hỗ trợ CẢ drag-drop (desktop) VÀ tap-to-match (mobile) ---- */
+.dnd-wrap { display: flex; gap: 24px; flex-wrap: wrap; align-items: flex-start; margin: 18px 0; }
+.dnd-ports, .dnd-names { flex: 1; min-width: 220px; display: flex; flex-direction: column; gap: 10px; }
+.dnd-port {
+  background: var(--white);
+  border: 2px dashed var(--stroke);
+  border-radius: 12px;
+  padding: 14px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--sub);
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.25s ease, background 0.25s ease, transform 0.2s ease;
+}
+.dnd-port.selectable { cursor: pointer; border-style: solid; }
+.dnd-port.selectable:hover { border-color: var(--primary); }
+.dnd-port.filled { border-style: solid; border-color: var(--teal); color: var(--ink); font-weight: bold; background: #E3F5F1; animation: pop 0.35s ease; }
+.dnd-port.wrong-drop { border-color: var(--coral); background: #FBEAE4; animation: shake 0.35s ease; }
+.dnd-label {
+  background: var(--primary);
+  color: white;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 13.5px;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  user-select: none;
+  transition: transform 0.2s ease, opacity 0.3s ease, box-shadow 0.2s ease;
+}
+.dnd-label:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(14,124,158,0.3); }
+.dnd-label.used { opacity: 0; transform: scale(0.8); cursor: default; pointer-events: none; }
+.dnd-label.active-pick { outline: 3px solid var(--amber); outline-offset: 2px; }
+.dnd-mode-hint { font-size: 12px; color: var(--sub); text-align: center; margin-bottom: 6px; }
+
+/* ---- Mouse showcase cards ---- */
+.mouse-scenario-banner {
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+  color: white;
+  border-radius: 14px;
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.mouse-scenario-banner .msb-icon {
+  font-size: 34px;
+  background: rgba(255,255,255,0.15);
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.mouse-scenario-banner .msb-text b { display: block; font-size: 15px; }
+.mouse-scenario-banner .msb-text span { font-size: 13px; color: #CFE9EF; }
+
+.mouse-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 16px; }
+.mouse-card {
+  background: var(--white);
+  border: 2px solid var(--stroke);
+  border-radius: 16px;
+  padding: 18px 16px;
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(.34,1.56,.64,1), border-color 0.25s ease, box-shadow 0.25s ease;
+  text-align: center;
+}
+.mouse-card:hover:not(.locked) { transform: translateY(-6px); border-color: var(--primary); box-shadow: 0 14px 26px rgba(11,79,108,0.15); }
+.mouse-card.correct { border-color: var(--teal); background: #E3F5F1; animation: pop 0.4s ease; }
+.mouse-card.wrong { border-color: var(--coral); background: #FBEAE4; animation: shake 0.4s ease; }
+.mouse-card.locked { cursor: default; opacity: 0.55; }
+.mouse-card .mc-svg { height: 76px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; }
+.mouse-card .mc-name { font-weight: bold; color: var(--primary-dark); font-size: 14.5px; margin-bottom: 4px; }
+.mouse-card .mc-fit { font-size: 11px; color: var(--sub); margin-bottom: 10px; font-style: italic; }
+
+.mc-stat { margin-bottom: 7px; text-align: left; }
+.mc-stat .mc-stat-label { font-size: 11px; color: var(--ink); display: flex; justify-content: space-between; margin-bottom: 2px; }
+.mc-stat .mc-stat-label span:last-child { color: var(--sub); font-weight: bold; }
+
+.mouse-feedback-box { margin-top: 16px; }
+
+/* ---- Bluetooth: quy trình 4 bước ---- */
+.bt-steps { display: flex; justify-content: space-between; align-items: center; margin: 6px 0 22px; gap: 4px; }
+.bt-step-dot {
+  flex: 1;
+  text-align: center;
+  font-size: 11px;
+  color: var(--sub);
+  position: relative;
+  padding-top: 34px;
+}
+.bt-step-dot::before {
+  content: '';
+  position: absolute;
+  top: 12px; left: 50%;
+  transform: translateX(-50%);
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 2px solid var(--stroke);
+  z-index: 2;
+}
+.bt-step-dot::after {
+  content: '';
+  position: absolute;
+  top: 23px; left: -50%;
+  width: 100%; height: 2px;
+  background: var(--stroke);
+  z-index: 1;
+}
+.bt-step-dot:first-child::after { display: none; }
+.bt-step-dot.active { color: var(--primary-dark); font-weight: bold; }
+.bt-step-dot.active::before { background: var(--primary); border-color: var(--primary); }
+.bt-step-dot.done::before { background: var(--teal); border-color: var(--teal); content: ''; }
+.bt-step-dot.done::after { background: var(--teal); }
+
+.bt-stage { text-align: center; }
+.bt-stage .bt-stage-icon { font-size: 48px; margin-bottom: 10px; }
+.bt-stage h3 { margin-top: 0; }
+.bt-scan-list { display: flex; flex-direction: column; gap: 10px; max-width: 380px; margin: 16px auto 0; }
+.bt-device-row {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--white);
+  border: 1.5px solid var(--stroke);
+  border-radius: 12px;
+  padding: 12px 16px;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+  animation: fadeInDevice 0.35s ease both;
+}
+.bt-device-row:hover:not(:disabled) { border-color: var(--primary); transform: translateX(3px); }
+.bt-device-row .bdr-icon { font-size: 22px; flex-shrink: 0; }
+.bt-device-row .bdr-name { font-weight: bold; font-size: 13.5px; color: var(--ink); }
+.bt-device-row.correct { border-color: var(--teal); background: #E3F5F1; animation: pop 0.4s ease; }
+.bt-device-row.wrong { border-color: var(--coral); background: #FBEAE4; animation: shake 0.4s ease; }
+.bt-device-row:disabled { cursor: default; opacity: 0.5; }
+
+.scan-pulse {
+  width: 70px; height: 70px;
+  border-radius: 50%;
+  border: 3px solid var(--teal);
+  margin: 0 auto 14px;
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px;
+}
+.scan-pulse::before, .scan-pulse::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--teal);
+  animation: pulseRing 1.8s ease-out infinite;
+  opacity: 0;
+}
+.scan-pulse::after { animation-delay: 0.9s; }
+@keyframes pulseRing {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+@keyframes fadeInDevice {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.bt-connected-banner {
+  background: #E3F5F1;
+  border: 1.5px solid var(--teal);
+  border-radius: 14px;
+  padding: 18px;
+  text-align: center;
+}
+.bt-connected-banner .cb-icon { font-size: 36px; margin-bottom: 6px; }
+
+/* ---- Mini-check inline quiz reuse spacing ---- */
+.mini-check .q-options { max-width: 460px; }
+
+/* ---- Ứng dụng 2: chọn máy in theo nơi ---- */
+.place-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; margin: 14px 0; }
+.place-card {
+  background: var(--white);
+  border: 2px solid var(--stroke);
+  border-radius: 14px;
+  padding: 18px 14px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.place-card:hover:not(.locked) { transform: translateY(-4px); border-color: var(--primary); box-shadow: 0 10px 20px rgba(11,79,108,0.12); }
+.place-card .pc-icon { font-size: 30px; margin-bottom: 8px; }
+.place-card .pc-name { font-weight: bold; color: var(--primary-dark); font-size: 13.5px; margin-bottom: 4px; }
+.place-card .pc-need { font-size: 11px; color: var(--sub); }
+.place-card.correct { border-color: var(--teal); background: #E3F5F1; animation: pop 0.4s ease; }
+.place-card.wrong { border-color: var(--coral); background: #FBEAE4; animation: shake 0.4s ease; }
+.place-card.locked { cursor: default; opacity: 0.55; }
+
+/* ---- Ứng dụng 3: chẩn đoán máy in không in được ---- */
+.diagnosis-wrap { display: flex; flex-direction: column; gap: 10px; max-width: 480px; margin: 14px auto 0; }
+.diagnosis-step {
+  background: var(--white);
+  border: 1.5px solid var(--stroke);
+  border-radius: 12px;
+  padding: 12px 16px;
+  cursor: pointer;
+  text-align: left;
+  font-size: 13.5px;
+  transition: border-color 0.2s ease, transform 0.15s ease;
+}
+.diagnosis-step:hover:not(.checked) { border-color: var(--primary); transform: translateX(3px); }
+.diagnosis-step.checked { border-color: var(--teal); background: #E3F5F1; color: var(--sub); text-decoration: line-through; cursor: default; }
+
+/* ---- Ứng dụng tổng hợp: chọn cách kết nối ---- */
+.connect-choice-grid { display: flex; flex-direction: column; gap: 14px; margin: 14px 0; }
+.connect-choice-row {
+  display: flex; align-items: center; gap: 14px;
+  background: var(--white);
+  border: 1.5px solid var(--stroke);
+  border-radius: 14px;
+  padding: 14px 18px;
+  flex-wrap: wrap;
+}
+.connect-choice-row .ccr-label { font-weight: bold; color: var(--primary-dark); font-size: 14px; min-width: 150px; }
+.connect-choice-row .ccr-options { display: flex; gap: 8px; flex-wrap: wrap; flex: 1; }
+.ccr-opt-btn {
+  border: 1.5px solid var(--stroke);
+  background: var(--white);
+  border-radius: 18px;
+  padding: 7px 14px;
+  font-size: 12.5px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.ccr-opt-btn:hover:not(:disabled) { border-color: var(--primary); }
+.ccr-opt-btn.correct { border-color: var(--teal); background: #E3F5F1; font-weight: bold; }
+.ccr-opt-btn.wrong { border-color: var(--coral); background: #FBEAE4; }
+.ccr-opt-btn:disabled { cursor: default; }
+
+/* ================= Thực hành (đăng nhập, nộp bài, giáo viên) ================= */
+
+.auth-card { max-width: 420px; margin: 0 auto; }
+.form-field { margin-bottom: 14px; text-align: left; }
+.form-field label { display: block; font-size: 13px; font-weight: bold; color: var(--primary-dark); margin-bottom: 5px; }
+.form-field input {
+  width: 100%;
+  font-family: inherit;
+  font-size: 14px;
+  padding: 10px 14px;
+  border: 1.5px solid var(--stroke);
+  border-radius: 10px;
+  background: var(--white);
+  color: var(--ink);
+}
+.form-field input:focus { outline: none; border-color: var(--primary); }
+.auth-toggle { text-align: center; font-size: 13px; color: var(--sub); margin-top: 16px; }
+.auth-toggle a { color: var(--primary); font-weight: bold; text-decoration: none; cursor: pointer; }
+.form-msg { font-size: 13px; padding: 10px 14px; border-radius: 10px; margin: 12px 0; display: none; }
+.form-msg.show { display: block; }
+.form-msg.ok { background: #E3F5F1; color: #0B4F6C; }
+.form-msg.bad { background: #FBEAE4; color: var(--coral); }
+
+.student-badge {
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--card-bg);
+  border: 1px solid var(--stroke);
+  border-radius: 14px;
+  padding: 14px 18px;
+  margin-bottom: 18px;
+}
+.student-badge .sb-info b { color: var(--primary-dark); display: block; }
+.student-badge .sb-info span { font-size: 12.5px; color: var(--sub); }
+.student-badge button { background: transparent; border: 1.5px solid var(--stroke); color: var(--sub); border-radius: 16px; padding: 6px 14px; font-size: 12.5px; }
+
+.upload-dropzone {
+  border: 2px dashed var(--stroke);
+  border-radius: 16px;
+  padding: 34px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+  background: var(--white);
+}
+.upload-dropzone:hover, .upload-dropzone.drag-over { border-color: var(--primary); background: rgba(14,124,158,0.05); }
+.upload-dropzone .ud-icon { font-size: 34px; margin-bottom: 8px; }
+.upload-dropzone .ud-text { font-size: 13.5px; color: var(--sub); }
+.upload-dropzone .ud-file-name { font-weight: bold; color: var(--primary-dark); margin-top: 8px; }
+.upload-dropzone input[type="file"] { display: none; }
+
+.submission-list { display: flex; flex-direction: column; gap: 10px; }
+.submission-row {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--white);
+  border: 1px solid var(--stroke);
+  border-radius: 12px;
+  padding: 12px 16px;
+}
+.submission-row .sr-icon { font-size: 22px; flex-shrink: 0; }
+.submission-row .sr-info { flex: 1; }
+.submission-row .sr-info b { display: block; font-size: 13.5px; color: var(--ink); }
+.submission-row .sr-info span { font-size: 11.5px; color: var(--sub); }
+.submission-row .sr-download { font-size: 12.5px; }
+
+.teacher-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.teacher-table th, .teacher-table td { border: 1px solid var(--stroke); padding: 8px 12px; text-align: left; }
+.teacher-table th { background: var(--primary-dark); color: white; position: sticky; top: 56px; }
+.teacher-table tr:nth-child(even) td { background: var(--card-bg); }
+.teacher-table a { color: var(--primary); font-weight: bold; text-decoration: none; }
+.teacher-filter-row { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+.teacher-filter-row input, .teacher-filter-row select {
+  font-family: inherit; font-size: 13px; padding: 8px 12px;
+  border: 1.5px solid var(--stroke); border-radius: 10px; background: white;
+}

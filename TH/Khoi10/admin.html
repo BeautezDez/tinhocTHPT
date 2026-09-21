@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Giáo viên · Thực hành Excel</title>
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/pocketbase@0.21.1/dist/pocketbase.umd.js"></script>
+</head>
+<body>
+
+<div class="topnav">
+  <a class="brand" href="../../index.html">Tin học <small>Lớp 10</small></a>
+  <a class="navlink active" href="admin.html">👩‍🏫 Giáo viên</a>
+  <span class="spacer"></span>
+</div>
+
+<div class="page-wrap">
+  <h1 class="page-title">👩‍🏫 Danh sách bài nộp — Thực hành Excel</h1>
+
+  <div class="card auth-card" id="login-card">
+    <h2>Đăng nhập giáo viên</h2>
+    <div class="form-field">
+      <label>Email</label>
+      <input type="text" id="admin-email" placeholder="admin@example.com">
+    </div>
+    <div class="form-field">
+      <label>Mật khẩu</label>
+      <input type="password" id="admin-password" placeholder="Mật khẩu Admin PocketBase">
+    </div>
+    <button class="btn btn-primary" style="width:100%;" onclick="doAdminLogin()">Đăng nhập</button>
+    <div class="form-msg" id="admin-login-msg"></div>
+  </div>
+
+  <div id="dashboard" style="display:none;">
+    <div class="teacher-filter-row">
+      <select id="filter-tuan" onchange="onWeekChange()">
+        <option value="excel-tuan1">Tuần 1</option>
+        <option value="excel-tuan2">Tuần 2</option>
+        <option value="excel-tuan3">Tuần 3</option>
+      </select>
+      <input type="text" id="filter-hoten" placeholder="Lọc theo họ tên…" oninput="renderTable()">
+      <input type="text" id="filter-lop" placeholder="Lọc theo lớp…" oninput="renderTable()">
+      <select id="filter-trang-thai" onchange="renderTable()">
+        <option value="">Tất cả trạng thái</option>
+        <option value="ontime">Chỉ đúng hạn</option>
+        <option value="late">Chỉ nộp trễ</option>
+      </select>
+      <select id="filter-view" onchange="renderTable()">
+        <option value="latest">Chỉ bài nộp mới nhất mỗi học sinh</option>
+        <option value="all">Toàn bộ lịch sử nộp bài</option>
+      </select>
+    </div>
+
+    <div class="card">
+      <table class="teacher-table">
+        <thead>
+          <tr>
+            <th>Họ và tên</th>
+            <th>Lớp</th>
+            <th>Lần nộp</th>
+            <th>Trạng thái</th>
+            <th>Thời gian nộp</th>
+            <th>Ghi chú</th>
+            <th>File</th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+          <tr><td colspan="7">Đang tải…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Trang này quản lý nhiều BAI_ID (theo tuần) nên không khai báo cố định
+  // như các trang khác — pocketbase-shared.js chỉ cần BAI_ID tồn tại để
+  // không báo lỗi console, giá trị thật sự dùng khi truy vấn lấy từ dropdown.
+  const BAI_ID = 'excel-tuan1';
+</script>
+<script src="../pocketbase-shared.js"></script>
+<script>
+  let allSubmissions = [];
+
+  function showMsg(elId, text, ok) {
+    const el = document.getElementById(elId);
+    el.textContent = text;
+    el.className = 'form-msg show ' + (ok ? 'ok' : 'bad');
+  }
+
+  async function doAdminLogin() {
+    const email = document.getElementById('admin-email').value.trim();
+    const password = document.getElementById('admin-password').value;
+    if (!email || !password) {
+      showMsg('admin-login-msg', 'Vui lòng nhập email và mật khẩu.', false);
+      return;
+    }
+    const result = await loginAdmin(email, password);
+    if (!result.success) {
+      showMsg('admin-login-msg', '❌ ' + result.message, false);
+      return;
+    }
+    document.getElementById('login-card').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    loadWeekSubmissions();
+  }
+
+  function formatDate(d) {
+    return new Date(d).toLocaleString('vi-VN', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' });
+  }
+
+  function onWeekChange() {
+    loadWeekSubmissions();
+  }
+
+  async function loadWeekSubmissions() {
+    const client = await getPocketBase();
+    if (!client) return;
+    const currentBaiId = document.getElementById('filter-tuan').value;
+    document.getElementById('table-body').innerHTML = '<tr><td colspan="7">Đang tải…</td></tr>';
+    try {
+      const result = await client.collection('submissions').getFullList({
+        filter: `bai_id="${currentBaiId}"`,
+        sort: '-created'
+      });
+      allSubmissions = result;
+      renderTable();
+    } catch (e) {
+      console.error(e);
+      document.getElementById('table-body').innerHTML = '<tr><td colspan="7">Lỗi tải dữ liệu.</td></tr>';
+    }
+  }
+
+  function renderTable() {
+    const hoTenFilter = document.getElementById('filter-hoten').value.trim().toLowerCase();
+    const lopFilter = document.getElementById('filter-lop').value.trim().toLowerCase();
+    const trangThaiFilter = document.getElementById('filter-trang-thai').value;
+    const viewMode = document.getElementById('filter-view').value;
+
+    let rows = allSubmissions;
+
+    if (viewMode === 'latest') {
+      const latestByStudent = {};
+      rows.forEach(r => {
+        if (!latestByStudent[r.student_id] || r.lan_nop_thu > latestByStudent[r.student_id].lan_nop_thu) {
+          latestByStudent[r.student_id] = r;
+        }
+      });
+      rows = Object.values(latestByStudent);
+    }
+
+    rows = rows.filter(r => {
+      if (hoTenFilter && !r.ho_ten.toLowerCase().includes(hoTenFilter)) return false;
+      if (lopFilter && !r.lop.toLowerCase().includes(lopFilter)) return false;
+      if (trangThaiFilter === 'ontime' && r.la_nop_tre) return false;
+      if (trangThaiFilter === 'late' && !r.la_nop_tre) return false;
+      return true;
+    });
+
+    rows.sort((a, b) => new Date(b.created) - new Date(a.created));
+
+    const tbody = document.getElementById('table-body');
+    if (!rows.length) {
+      tbody.innerHTML = '<tr><td colspan="7">Không có bài nộp nào khớp bộ lọc.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = rows.map(r => {
+      const fileUrl = pb.files.getUrl(r, r.file);
+      const badge = r.la_nop_tre
+        ? '<span class="badge-tag late">Nộp trễ</span>'
+        : '<span class="badge-tag ontime">Đúng hạn</span>';
+      return `
+        <tr>
+          <td>${r.ho_ten}</td>
+          <td>${r.lop}</td>
+          <td>${r.lan_nop_thu}</td>
+          <td>${badge}</td>
+          <td>${formatDate(r.created)}</td>
+          <td>${r.note || ''}</td>
+          <td><a href="${fileUrl}" target="_blank">Tải xuống</a></td>
+        </tr>`;
+    }).join('');
+  }
+</script>
+</body>
+</html>
