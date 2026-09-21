@@ -4,7 +4,7 @@
   "outputDirectory": ".",
   "functions": {
     "api/pb-url.js": {
-      "runtime": "@vercel/node"
+      "runtime": "nodejs22.x"
     }
   }
 }
